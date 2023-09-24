@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.iqnev.boilerplate</groupId>
+    <artifactId>boilerplate</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>application</artifactId>
+  <packaging>jar</packaging>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.smallrye</groupId>
+        <artifactId>jandex-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <!--Modules-->
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>services</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>db-entities</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>db-migration</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>api-dtos</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>commons</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>configuration</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.iqnev.boilerplate</groupId>
+      <artifactId>resources</artifactId>
+    </dependency>
+
+    <!--Development-->
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkiverse.loggingmanager</groupId>
+      <artifactId>quarkus-logging-manager</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Test -->
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>

@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.iqnev.boilerplate</groupId>
+  <artifactId>boilerplate</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>boilerplate</name>
+  <description>Quarkus Imperative Boilerplate</description>
+
+  <modules>
+    <module>services</module>
+    <module>application</module>
+    <module>db-entities</module>
+    <module>db-migration</module>
+    <module>api-dtos</module>
+    <module>commons</module>
+    <module>configuration</module>
+    <module>resources</module>
+    <module>repositories</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <java.version>17</java.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+
+    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+
+    <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+
+    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+
+    <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
+
+    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+
+    <maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
+
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+
+    <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
+
+    <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
+
+    <versions-maven-plugin.version>2.14.1</versions-maven-plugin.version>
+
+    <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+
+    <checkstyle.version>9.3</checkstyle.version>
+
+    <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+
+    <commons-lang3.version>3.12.0</commons-lang3.version>
+
+    <commons-validator.version>1.7</commons-validator.version>
+
+    <lombok.version>1.18.24</lombok.version>
+
+    <postgresql.version>42.6.0</postgresql.version>
+
+    <validation-api.version>2.0.1.Final</validation-api.version>
+
+    <junit-jupiter.version>5.9.1</junit-jupiter.version>
+
+    <slf4j.version>2.0.3</slf4j.version>
+
+    <rest-assured.version>5.3.0</rest-assured.version>
+
+    <hibernate-jpamodelgen.version>6.2.6.Final</hibernate-jpamodelgen.version>
+
+    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+
+    <quarkus.platform.version>3.2.0.Final</quarkus.platform.version>
+
+    <quarkus-plugin.version>${quarkus.platform.version}</quarkus-plugin.version>
+
+    <jandex-maven-plugin.version>3.1.2</jandex-maven-plugin.version>
+
+    <mockito.version>4.8.1</mockito.version>
+
+    <assertj.version>3.23.1</assertj.version>
+
+    <quarkus-logging-json.version>3.0.0</quarkus-logging-json.version>
+
+    <quarkiverse.log-manager.version>3.0.0</quarkiverse.log-manager.version>
+
+    <skipEnforceSnapshots>true</skipEnforceSnapshots>
+
+    <commons-codec.version>1.16.0</commons-codec.version>
+
+    <commons-io.version>2.13.0</commons-io.version>
+
+    <rest-assured.version>5.3.1</rest-assured.version>
+
+    <!-- Sonar -->
+
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+
+    <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+
+    <sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
+
+    <!--suppress UnresolvedMavenProperty -->
+    <sonar.login>${env.SONAR_LOGIN}</sonar.login>
+
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+
+    <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+
+    <sonar.language>java</sonar.language>
+
+    <sonar.projectKey>TODO</sonar.projectKey>
+
+    <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+
+    <sonar.coverage.exclusions>
+      **/valueobjects/**,
+      **/constants/**,
+      **/config/**,
+      **/models/**,
+      **/enum/**,
+      **/dto/**,
+      **/dtos/**,
+      **/entities/**,
+      **/repositories/**,
+      **/unleash/**,
+      **/events/**,
+      **/error/**,
+    </sonar.coverage.exclusions>
+
+    <skipEnforceSnapshots>true</skipEnforceSnapshots>
+
+    <skipITs>true</skipITs>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <bannedPlugins>
+                    <level>WARN</level>
+                    <excludes>
+                      <exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+                    </excludes>
+                  </bannedPlugins>
+                  <requireMavenVersion>
+                    <version>3.8.4</version>
+                  </requireMavenVersion>
+                  <requireJavaVersion>
+                    <version>${java.version}</version>
+                  </requireJavaVersion>
+                </rules>
+              </configuration>
+            </execution>
+            <execution>
+              <id>enforce-no-snapshot-versions</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <skip>${skipEnforceSnapshots}</skip>
+                <rules>
+                  <requireReleaseDeps>
+                    <message>SNAPSHOT versions are not allowed to be merged to qa, staging and
+                      production branches!
+                    </message>
+                  </requireReleaseDeps>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+          <configuration>
+            <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <exclClassLoaders>*QuarkusClassLoader</exclClassLoaders>
+            <destFile>${project.build.directory}/jacoco-quarkus.exec</destFile>
+            <append>true</append>
+            <excludes>
+              <exclude>org.iqnev/**/config/**</exclude>
+              <exclude>org.iqnev/**/model/**</exclude>
+              <exclude>org.iqnev/**/models/**</exclude>
+              <exclude>org.iqnev/**/enum/**</exclude>
+              <exclude>org.iqnev/**/dto/**</exclude>
+              <exclude>org.iqnev/**/dtos/**</exclude>
+              <exclude>org.iqnev/**/entities/**</exclude>
+              <exclude>org.iqnev/**/enums/**</exclude>
+              <exclude>org.iqnev/**/constants/**</exclude>
+              <exclude>org.iqnev/**/events/**</exclude>
+              <exclude>org.iqnev/**/error/**</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <compilerArgs>
+              <arg>-parameters</arg>
+            </compilerArgs>
+            <annotationProcessorPaths>
+              <annotationProcessorPath>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${hibernate-jpamodelgen.version}</version>
+              </annotationProcessorPath>
+              <annotationProcessorPath>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </annotationProcessorPath>
+            </annotationProcessorPaths>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+          <configuration>
+            <systemProperties>
+              <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            </systemProperties>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+          <configuration>
+            <skipITs>${skipITs}</skipITs>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+              <configuration>
+                <systemPropertyVariables>
+                  <native.image.path>
+                    ${project.build.directory}/${project.build.finalName}-runner
+                  </native.image.path>
+                  <java.util.logging.manager>org.jboss.logmanager.LogManager
+                  </java.util.logging.manager>
+                  <maven.home>${maven.home}</maven.home>
+                </systemPropertyVariables>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${maven-checkstyle-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${checkstyle.version}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <configLocation>checkstyle.xml</configLocation>
+            <suppressionsLocation>checkstyle-suppressors.xml</suppressionsLocation>
+            <encoding>UTF-8</encoding>
+            <consoleOutput>true</consoleOutput>
+            <failsOnError>true</failsOnError>
+            <violationSeverity>warning</violationSeverity>
+            <linkXRef>false</linkXRef>
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <id>validate</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>${sonar-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versions-maven-plugin.version}</version>
+          <configuration>
+            <rulesUri>
+              file:///${maven.multiModuleProjectDirectory}/.mvn/maven-update-rules.xml
+            </rulesUri>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>compile</phase>
+              <goals>
+                <goal>display-dependency-updates</goal>
+                <goal>display-plugin-updates</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>io.smallrye</groupId>
+          <artifactId>jandex-maven-plugin</artifactId>
+          <version>${jandex-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>make-index</id>
+              <goals>
+                <goal>jandex</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-maven-plugin</artifactId>
+          <version>${quarkus-plugin.version}</version>
+          <extensions>true</extensions>
+          <executions>
+            <execution>
+              <goals>
+                <goal>build</goal>
+                <goal>generate-code</goal>
+                <goal>generate-code-tests</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <jvmArgs>--add-opens java.base/java.lang=ALL-UNNAMED</jvmArgs>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!--Modules-->
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>db-migration</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>db-entities</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>services</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>repositories</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>api-dtos</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>configuration</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>resources</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!--Development-->
+
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${validation-api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>compile</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>${rest-assured.version}</version>
+      </dependency>
+
+      <!-- Quarkus -->
+
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>${quarkus.platform.artifact-id}</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.quarkiverse.loggingmanager</groupId>
+        <artifactId>quarkus-logging-manager</artifactId>
+        <version>${quarkiverse.log-manager.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.quarkiverse.loggingjson</groupId>
+        <artifactId>quarkus-logging-json</artifactId>
+        <version>${quarkus-logging-json.version}</version>
+      </dependency>
+
+      <!-- Tests -->
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-junit5</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-junit5-mockito</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>${rest-assured.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-jacoco</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.iqnev.boilerplate</groupId>
+        <artifactId>commons</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+        <classifier>tests</classifier>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <profiles>
+
+    <profile>
+      <id>unit-tests-only</id>
+      <properties>
+        <testcase.include>%regex[.*Tests?.class]</testcase.include>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>integration-tests</id>
+      <properties>
+        <skipITs>false</skipITs>
+        <testcase.include>%regex[.*IT.class]</testcase.include>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>native</id>
+      <activation>
+        <property>
+          <name>native</name>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${maven-failsafe-plugin.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+                <configuration>
+                  <systemPropertyVariables>
+                    <native.image.path>
+                      ${project.build.directory}/${project.build.finalName}-runner
+                    </native.image.path>
+                  </systemPropertyVariables>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+      <properties>
+        <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.native.additional-build-args>-H:ResourceConfigurationFiles=resources-config.json
+        </quarkus.native.additional-build-args>
+      </properties>
+    </profile>
+
+  </profiles>
+
+</project>
