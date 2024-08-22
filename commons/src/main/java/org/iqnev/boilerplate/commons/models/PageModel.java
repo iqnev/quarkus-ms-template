@@ -19,8 +19,7 @@ public class PageModel<T> {
   private int totalPages;
 
   private long totalElements;
-
-  /** Page number starts from 1 */
+  
   private int page;
 
   private int size;

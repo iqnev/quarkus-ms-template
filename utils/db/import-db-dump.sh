@@ -4,7 +4,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "${DIR}/.env"
 
-DB_CONTAINER=boilerplate-db
+DB_CONTAINER=local-test-db
 
 DATABASE_TYPE=postgresql "${DEV_HUB_PATH}/db/db-docker-execute-sql.sh" \
-  "${DB_CONTAINER}" boilerplate localdev "$1"
+  "${DB_CONTAINER}" boilerplate local-test "$1"

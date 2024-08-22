@@ -4,7 +4,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${DIR}"
 
-DB_VOLUME_NAME=boilerplate-db-data
+DB_VOLUME_NAME=local-test-db-data
 
 for volume_name in $DB_VOLUME_NAME
 do

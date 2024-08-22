@@ -10,4 +10,4 @@ if [[ "${DB_CONTEXT}" == "" ]]; then
 fi
 
 "${DEV_HUB_PATH}/db/db-docker-dump-schema.sh" \
-  "${DB_CONTAINER}" boilerplate localdev "${DB_CONTEXT}"
+  "${DB_CONTAINER}" boilerplate local-test "${DB_CONTEXT}"

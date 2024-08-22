@@ -11,7 +11,7 @@ source "${DIR}/start-quarkus-env.sh"
 cd "${DIR}"
 set -e
 
-DOCKER_CONTAINER_NAME="boilerplate-db"
+DOCKER_CONTAINER_NAME="local-test-db"
 
 if [[ "$(docker inspect -f '{{.State.Running}}' $DOCKER_CONTAINER_NAME 2>/dev/null)" != "true" ]]; then
   echo "Docker container $DOCKER_CONTAINER_NAME is not running. Starting it now..."
@@ -27,4 +27,4 @@ else
   JVM_DEBUG_PORT="$2"
 fi
 
-./mvnw --s "${DIR}/.mvn/settings.xml" clean compile quarkus:dev -Ddebug=${JVM_DEBUG_PORT} -Dmaven.plugin.validation=VERBOSE
+./mvnw clean compile quarkus:dev -Ddebug=${JVM_DEBUG_PORT} -Dmaven.plugin.validation=VERBOSE

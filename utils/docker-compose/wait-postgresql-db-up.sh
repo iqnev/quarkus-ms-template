@@ -7,7 +7,7 @@ command -v pg_isready > /dev/null 2>&1 || {
   exit 2
 }
 
-export PGPORT=7030
+export PGPORT=3333
 export PGHOST=localhost
 export POSTGRESQL_WAIT_CONNECT_SECONDS=120
 

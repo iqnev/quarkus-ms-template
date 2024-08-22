@@ -1,18 +1,18 @@
 version: '3.1'
 
 services:
-  boilerplate-db:
+  local-test-db:
     image: postgres:14-alpine
-    container_name: boilerplate-db
+    container_name: local-test-db
     environment:
-      POSTGRES_USER: "localdev"
+      POSTGRES_USER: "local-test"
       POSTGRES_PASSWORD_FILE: "/run/secrets/db-password"
-      POSTGRES_DB: "boilerplate"
+      POSTGRES_DB: "local-test"
     ports:
-      - 7030:5432
+      - 3333:5432
     volumes:
       - ./docker-secrets:/run/secrets
-      - boilerplate-db-data:/var/lib/postgresql/data
+      - local-test-db-data:/var/lib/postgresql/data
 volumes:
-  boilerplate-db-data:
+  local-test-db-data:
     external: true

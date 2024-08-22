@@ -12,7 +12,7 @@ docker build -t boilerplate-flyway:latest -f ./utils/docker/Docker-flyway .
 
 docker run --rm --network="host" \
   -e FLYWAY_USER="${DB_USER}" \
-  -e FLYWAY_URL=jdbc:postgresql://localhost:7030/boilerplate \
+  -e FLYWAY_URL=jdbc:postgresql://localhost:3333/local-test \
   -e FLYWAY_PASSWORD="${DB_PASSWORD}" \
   -e FLYWAY_SCHEMAS=public \
   -e FLYWAY_LOCATIONS=filesystem:/db/ \
