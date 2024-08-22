@@ -55,11 +55,6 @@
 
     <dependency>
       <groupId>org.iqnev.boilerplate</groupId>
-      <artifactId>db-migration</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.iqnev.boilerplate</groupId>
       <artifactId>api-dtos</artifactId>
     </dependency>
 

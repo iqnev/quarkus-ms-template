@@ -17,7 +17,6 @@
     <module>services</module>
     <module>application</module>
     <module>db-entities</module>
-    <module>db-migration</module>
     <module>api-dtos</module>
     <module>commons</module>
     <module>configuration</module>
@@ -398,12 +397,6 @@
     <dependencies>
 
       <!--Modules-->
-
-      <dependency>
-        <groupId>org.iqnev.boilerplate</groupId>
-        <artifactId>db-migration</artifactId>
-        <version>${project.version}</version>
-      </dependency>
 
       <dependency>
         <groupId>org.iqnev.boilerplate</groupId>

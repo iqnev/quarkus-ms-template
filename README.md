@@ -17,9 +17,6 @@
   Organizing entities in a dedicated module promotes separation of concerns and facilitates easier
   management and evolution of the data model.
 
-* `db-migration`: This module stores Flyway database migration scripts, making it easy to manage and
-  version database schema changes.
-
 * `services`: The "services" module encompasses all the business logic and operations orchestration
   within the microservice. Each service encapsulates specific functionality, promoting modularity
   and reusability for easier maintenance and testing.
@@ -30,28 +27,53 @@
 * `application`: This module serves as an aggregation module, bringing together the various
   components of the project.
 
-* `utils`: In the "utils" module, infrastructure scripts and utilities are stored to support the
-  development and deployment of the microservice.
-
 
 ## Quick Start
 
-First need to set all the necessary variables. You can use the following script.
+Here is the database schema:
 
-```bash
- source ./start-quarkus-env.sh
- ```
+```sql
+CREATE TABLE states
+(
+  id            BIGSERIAL PRIMARY KEY       NOT NULL,
+  name          VARCHAR(255)                NOT NULL,
+  region        VARCHAR(255),
+  public_id     VARCHAR(128)                NOT NULL,
+  created_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  last_modified TIMESTAMP WITHOUT TIME ZONE NOT NULL
+);
 
-Also you need to have **PostgreSQL** DB docker container and start **flyway** migration:
-
-```bash
-utils/docker-compose/docker-compose.sh up -d
+CREATE TABLE cities
+(
+  id            BIGSERIAL PRIMARY KEY       NOT NULL,
+  name          VARCHAR(255)                NOT NULL,
+  public_id     VARCHAR(128)                NOT NULL,
+  state_id      BIGINT REFERENCES states (id),
+  created_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  last_modified TIMESTAMP WITHOUT TIME ZONE NOT NULL
+);
 ```
 
-And
+and I will give you the simple data to insert:
 
-```bash
-./start-flyway.sh
+```sql
+
+-- Insert data into the 'states' table
+INSERT INTO states (name, region, public_id, created_at, last_modified)
+VALUES ('California', 'West', '4C1BQ4ESCRVBVZQYVVADQR8L', NOW(), NOW()),
+       ('New York', 'Northeast', '5QQDQKV64QXF8P9R2ECVPYQJ', NOW(), NOW()),
+       ('Texas', 'South', '5B4KYWFP28S9H8S7SWS2TJ33', NOW(), NOW()),
+       ('Florida', 'South', '5VVPE42YRBKAZZ2EF4DSXT6F', NOW(), NOW());
+
+-- Insert data into the 'cities' table
+INSERT INTO cities (name, state_id, public_id, created_at, last_modified)
+VALUES ('Los Angeles', 1, '57V6VA7KT7RWZB1PSBCRVPZR', NOW(), NOW()),
+       ('San Francisco', 1, '4ED12E9P9EV4HR4ZS2XSVJY1', NOW(), NOW()),
+       ('New York City', 2, '4K42AP78K7BPB2H8RBWKEZ55', NOW(), NOW()),
+       ('Buffalo', 2, '5XC2HZZCJ34W3MQAABZT5W17', NOW(), NOW()),
+       ('Austin', 3, '5S5Q7XTW3WSS9S5RAQXZT42R', NOW(), NOW()),
+       ('Houston', 3, '47EJS8C25HZAQZ1K28VCSRVW', NOW(), NOW()),
+       ('Miami', 4, '4XH7HWW2WKZ84JRA4HJP9J2K', NOW(), NOW());
 ```
 
 ### Building
@@ -80,37 +102,4 @@ or
 ./build-native.sh
 ```
 
-### Starting ITs
-
-You can run the ITs
-
-```bash 
-./mvnw clean verify
-```
-
-
-### Starting Quarkus
-
-Execute to start PostgreSQL DB docker container:
-
-```bash
-utils/docker-compose/docker-compose.sh up -d
-```
-
-Execute to start Quarkus in dev mode:
-
-```bash
-./start-quarkus-dev.sh
-```
-
-Execute to start Quarkus native mode:
-
-```bash
-./start-quarkus-native.sh
-```
-
-> The native build should be produced before that
-
-The start script has the same settings configured in the
-`utils/docker-compose/docker-compose.yaml`
 
